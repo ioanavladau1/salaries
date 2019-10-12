@@ -14,15 +14,15 @@ public class EmployeesService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployeesService.class);
 
-    private  final EmployeesRepository employeesRepository;
+    private final EmployeesRepository employeesRepository;
 
     public EmployeesService(EmployeesRepository employeesRepository) {
         this.employeesRepository = employeesRepository;
     }
 
-    public Employees createEmployes(SaveEmployeesRequest request){
+    public Employees createEmployes(SaveEmployeesRequest request) {
         LOGGER.info("Create employees :", request);
-        Employees employees =new Employees();
+        Employees employees = new Employees();
         employees.setFirstName(request.getFirstName());
         employees.setLastName(request.getLastName());
         employees.setMarca(request.getMarca());
@@ -33,22 +33,23 @@ public class EmployeesService {
         return employeesRepository.save(employees);
 
     }
-    public  Employees getEmployees(long id){
-        LOGGER.info("Retrieving employees : {}", id );
-        return  employeesRepository.findById(id)
-                .orElseThrow(()->
+
+    public Employees getEmployees(long id) {
+        LOGGER.info("Retrieving employees : {}", id);
+        return employeesRepository.findById(id)
+                .orElseThrow(() ->
                         new ResourceNotFoundException("Employees" + id + "not found"));
     }
 
-    public Employees updateEmployees(long id, SaveEmployeesRequest request){
+    public Employees updateEmployees(long id, SaveEmployeesRequest request) {
         LOGGER.info("Update employees {}: {}", id, request);
 
         Employees employees = getEmployees(id);
         BeanUtils.copyProperties(request, employees);
-        return employeesRepository.save(employees );
+        return employeesRepository.save(employees);
     }
 
-    public  void  deleteEmployees(long id){
+    public void deleteEmployees(long id) {
         LOGGER.info("Delete employees : {}", id);
         employeesRepository.deleteById(id);
     }

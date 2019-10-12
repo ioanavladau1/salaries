@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 public class SaveEmployeesRequest {
 
     @NotNull
-    private  String firstName;
+    private String firstName;
     @NotNull
     private String lastName;
     @NotNull
