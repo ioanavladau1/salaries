@@ -1,16 +1,8 @@
-package org.fasttrackit.salaries.domain;
+package org.fasttrackit.salaries.transfer.employees;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
-@Entity
-public class Employees {
-
-    @Id
-    @GeneratedValue
-    private long id;
+public class SaveEmployeesRequest {
 
     @NotNull
     private  String firstName;
@@ -27,13 +19,6 @@ public class Employees {
     @NotNull
     private double tickets;
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -94,7 +79,6 @@ public class Employees {
     @Override
     public String toString() {
         return "Employees{" +
-                "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", marca=" + marca +
@@ -104,4 +88,5 @@ public class Employees {
                 ", tickets=" + tickets +
                 '}';
     }
+
 }
