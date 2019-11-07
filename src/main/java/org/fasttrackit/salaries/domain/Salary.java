@@ -96,4 +96,20 @@ public class Salary {
     public void setNetincome(long netincome) {
         this.netincome = netincome;
     }
+
+    @Override
+    public String toString() {
+        return "Salary{" +
+                "workingdays=" + workingdays +
+                ", workeddays=" + workeddays +
+                ", holidays=" + holidays +
+                ", sickdays=" + sickdays +
+                ", dayswithoutsalary=" + dayswithoutsalary +
+                ", brutincome=" + brutincome +
+                ", CAS=" + CAS +
+                ", CASS=" + CASS +
+                ", tax=" + tax +
+                ", netincome=" + netincome +
+                '}';
+    }
 }
