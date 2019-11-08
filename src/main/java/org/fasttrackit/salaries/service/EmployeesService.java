@@ -20,7 +20,7 @@ public class EmployeesService {
         this.employeesRepository = employeesRepository;
     }
 
-    public Employees createEmployes(SaveEmployeesRequest request) {
+    public Employees createEmployees(SaveEmployeesRequest request) {
         LOGGER.info("Create employees :", request);
         Employees employees = new Employees();
         employees.setFirstName(request.getFirstName());
