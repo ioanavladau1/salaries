@@ -7,16 +7,19 @@ import org.fasttrackit.salaries.transfer.employees.SaveEmployeesRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.util.function.Supplier;
-
+@Service
 public class EmployeesService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployeesService.class);
 
     private final EmployeesRepository employeesRepository;
 
+    @Autowired
     public EmployeesService(EmployeesRepository employeesRepository) {
+
         this.employeesRepository = employeesRepository;
     }
 
@@ -53,4 +56,5 @@ public class EmployeesService {
         LOGGER.info("Delete employees : {}", id);
         employeesRepository.deleteById(id);
     }
+
 }

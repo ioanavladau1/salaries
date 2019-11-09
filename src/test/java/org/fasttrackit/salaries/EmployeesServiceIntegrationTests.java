@@ -5,7 +5,10 @@ import org.fasttrackit.salaries.exception.ResourceNotFoundException;
 import org.fasttrackit.salaries.service.EmployeesService;
 import org.fasttrackit.salaries.transfer.employees.SaveEmployeesRequest;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.TransactionSystemException;
 
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -13,13 +16,15 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.core.Is.is;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class EmployeesServiceIntegrationTests {
 
     @Autowired
     private EmployeesService employeesService;
 
     @Test
-    public void testCreateEmployees_whenValidRequest_thenReturnCreateEmployees(){
+    public void testCreateEmployees_whenValidRequest_thenReturnCreateEmployees() {
 
         createEmployees();
 
@@ -27,16 +32,16 @@ public class EmployeesServiceIntegrationTests {
 
 
     @Test(expected = TransactionSystemException.class)
-    public void testCreateEmployees_whenInvalidRequest_thenThrowException(){
+    public void testCreateEmployees_whenInvalidRequest_thenThrowException() {
 
         SaveEmployeesRequest request = new SaveEmployeesRequest();
 
-        Employees employees = employeesService.createEmployees(request);
+        Employees employes = employeesService.createEmployees(request);
     }
 
 
     @Test
-    public void testGetEmployees_whenExistingEmployees_thenReturnEmployees(){
+    public void testGetEmployees_whenExistingEmployees_thenReturnEmployees() {
         Employees createEmployees = createEmployees();
 
         Employees retriveEmployees = employeesService.getEmployees(createEmployees.getId());
@@ -52,24 +57,24 @@ public class EmployeesServiceIntegrationTests {
         assertThat(retriveEmployees.getMarca(), is(createEmployees.getMarca()));
     }
 
-    @Test( expected = ResourceNotFoundException.class)
-    public  void testGetEmploees_whenNotExistingEmployees_thenThrowNotFoundException(){
+    @Test(expected = ResourceNotFoundException.class)
+    public void testGetEmploees_whenNotExistingEmployees_thenThrowNotFoundException() {
         employeesService.getEmployees(888888);
     }
 
     @Test
-    public  void updateEmployees_whenValidRequest_thenReturnUpdateEmployees(){
+    public void updateEmployees_whenValidRequest_thenReturnUpdateEmployees() {
 
         Employees employees = createEmployees();
-        SaveEmployeesRequest request=new SaveEmployeesRequest();
-        request.setFirstName(employees.getFirstName()+"Muresan");
-        request.setLastName(employees.getLastName()+"Ana");
-        request.setSalary(employees.getSalary()+200);
+        SaveEmployeesRequest request = new SaveEmployeesRequest();
+        request.setFirstName(employees.getFirstName() + "Muresan");
+        request.setLastName(employees.getLastName() + "Ana");
+        request.setSalary(employees.getSalary() + 200);
 
         Employees updateEmployees = employeesService.updateEmployees(employees.getId(), request);
 
         assertThat(updateEmployees, notNullValue());
-        assertThat(updateEmployees.getId(),is(employees.getId()));
+        assertThat(updateEmployees.getId(), is(employees.getId()));
         assertThat(updateEmployees.getFirstName(), is(request.getFirstName()));
         assertThat(updateEmployees.getLastName(), is(request.getLastName()));
         assertThat(updateEmployees.getSalary(), is(request.getSalary()));
@@ -93,16 +98,14 @@ public class EmployeesServiceIntegrationTests {
         assertThat(employees, notNullValue());
         assertThat(employees.getId(), notNullValue());
         assertThat(employees.getId(), greaterThan(0L));
-        assertThat(employees.getFirstName(),is(request.getFirstName()));
-        assertThat(employees.getLastName(),is(request.getLastName()));
-        assertThat(employees.getSalary(),is(request.getSalary()));
-        assertThat(employees.getPersonalDeduction(),is(request.getPersonalDeduction()));
-        assertThat(employees.getStandardHours(),is(request.getStandardHours()));
+        assertThat(employees.getFirstName(), is(request.getFirstName()));
+        assertThat(employees.getLastName(), is(request.getLastName()));
+        assertThat(employees.getSalary(), is(request.getSalary()));
+        assertThat(employees.getPersonalDeduction(), is(request.getPersonalDeduction()));
+        assertThat(employees.getStandardHours(), is(request.getStandardHours()));
         assertThat(employees.getTickets(), is(request.getTickets()));
 
-        return employees ;
+        return employees;
     }
-
-
-
 }
+

@@ -8,6 +8,18 @@ public class SaveSalaryRequest {
     private  long sickdays;
     private  long dayswithoutsalary;
 
+    @Override
+    public String toString() {
+        return "SaveSalaryRequest{" +
+                "workingdaysmonth=" + workingdaysmonth +
+                ", workeddays=" + workeddays +
+                ", holidaydays=" + holidays +
+                ", sickdays=" + sickdays +
+                ", dayswithoutsalary=" + dayswithoutsalary +
+
+                '}';
+    }
+
     public long getWorkingdaysmonth() {
         return workingdaysmonth;
     }
@@ -47,16 +59,4 @@ public class SaveSalaryRequest {
     public void setDayswithoutsalary(long dayswithoutsalary) { this.dayswithoutsalary = dayswithoutsalary; }
 
 
-
-    @Override
-    public String toString() {
-        return "SaveSalaryRequest{" +
-                "workingdaysmonth=" + workingdaysmonth +
-                ", workeddays=" + workeddays +
-                ", holidaydays=" + holidays +
-                ", sickdays=" + sickdays +
-                ", dayswithoutsalary=" + dayswithoutsalary +
-
-                '}';
-    }
 }

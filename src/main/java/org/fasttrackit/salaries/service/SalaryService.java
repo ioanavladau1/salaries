@@ -3,6 +3,7 @@ package org.fasttrackit.salaries.service;
 import org.fasttrackit.salaries.domain.Salary;
 import org.fasttrackit.salaries.exception.ResourceNotFoundException;
 import org.fasttrackit.salaries.persistance.SalaryRepository;
+import org.fasttrackit.salaries.transfer.salary.AddEmployeesToSalary;
 import org.fasttrackit.salaries.transfer.salary.SaveSalaryRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +23,9 @@ public class SalaryService {
         this.salaryRepository = salaryRepository;
     }
 
-    public Salary createSalary(SaveSalaryRequest request){
+
+    public Salary createSalary(AddEmployeesToSalary request1, SaveSalaryRequest request){
+
         LOGGER.info("Create clocking: ", request);
         Salary salary = new Salary();
         salary.setWorkingdaysmonth(request.getWorkingdaysmonth());
