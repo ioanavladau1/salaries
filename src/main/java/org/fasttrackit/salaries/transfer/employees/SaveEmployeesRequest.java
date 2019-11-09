@@ -1,6 +1,5 @@
 package org.fasttrackit.salaries.transfer.employees;
 
-
 import javax.validation.constraints.NotNull;
 
 public class SaveEmployeesRequest {

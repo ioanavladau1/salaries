@@ -57,6 +57,4 @@ public class SaveSalaryRequest {
     }
 
     public void setDayswithoutsalary(long dayswithoutsalary) { this.dayswithoutsalary = dayswithoutsalary; }
-
-
 }

@@ -1,7 +1,9 @@
 package org.fasttrackit.salaries.service;
 
+import org.fasttrackit.salaries.domain.Employees;
 import org.fasttrackit.salaries.domain.Salary;
 import org.fasttrackit.salaries.exception.ResourceNotFoundException;
+import org.fasttrackit.salaries.persistance.EmployeesRepository;
 import org.fasttrackit.salaries.persistance.SalaryRepository;
 import org.fasttrackit.salaries.transfer.salary.AddEmployeesToSalary;
 import org.fasttrackit.salaries.transfer.salary.SaveSalaryRequest;
@@ -17,42 +19,61 @@ public class SalaryService {
     private static final Logger LOGGER = LoggerFactory.getLogger(SalaryService.class);
 
     private final SalaryRepository salaryRepository;
+    private final EmployeesRepository employeesRepository;
+    private final EmployeesService employeesService;
 
     @Autowired
-    public SalaryService(SalaryRepository salaryRepository) {
+    public SalaryService(SalaryRepository salaryRepository, EmployeesService employeesService, EmployeesRepository employeesRepository) {
+
         this.salaryRepository = salaryRepository;
+        this.employeesService = employeesService;
+        this.employeesRepository = employeesRepository;
     }
 
 
-    public Salary createSalary(AddEmployeesToSalary request1, SaveSalaryRequest request){
+    public Salary createSalary(AddEmployeesToSalary request1, SaveSalaryRequest request) {
+        LOGGER.info("Create salary: ", request1);
 
-        LOGGER.info("Create clocking: ", request);
-        Salary salary = new Salary();
+        Employees employee = employeesRepository.findById(request1.getEmployeesId())
+                .orElseThrow(() -> new ResourceNotFoundException("Not found employee: " + request1.getEmployeesId()));
+
+        Salary salary = salaryRepository.findById(request1.getEmployeesId())
+                .orElse(new Salary());
+
+        if (salary.getEmployees() == null) {
+            LOGGER.info("Employees doesn't exist");
+            Employees employees = employeesService.getEmployees(request1.getEmployeesId());
+            salary.setEmployees(employees);
+            salary.setId(employees.getId());
+        }
+
         salary.setWorkingdaysmonth(request.getWorkingdaysmonth());
         salary.setWorkeddays(request.getWorkeddays());
         salary.setHolidays(request.getHolidays());
         salary.setSickdays(request.getSickdays());
         salary.setDayswithoutsalary(request.getDayswithoutsalary());
-        // salary.setUnmotivateddays(request.getUnmotivateddays());
-        return salaryRepository.save(salary);
+        salaryRepository.save(salary);
+
+        return salary;
     }
 
-    public Salary getSalary(long id){
-        LOGGER.info("Retrievied clocking : {} " ,id);
+
+    public Salary getSalary(long id) {
+        LOGGER.info("Retrievied clocking : {} ", id);
         return salaryRepository.findById(id)
-                .orElseThrow(()-> new ResourceNotFoundException("Not found salary for " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Not found salary for " + id));
     }
 
-    public Salary updateSalary(long id, SaveSalaryRequest request){
-        LOGGER.info("Update salary for {}: {}",id,request);
+    public Salary updateSalary(long id, SaveSalaryRequest request) {
+        LOGGER.info("Update salary for {}: {}", id, request);
 
         Salary salary = getSalary(id);
-        BeanUtils.copyProperties(request,salary);
+        BeanUtils.copyProperties(request, salary);
         return salaryRepository.save(salary);
     }
-    public  void  deleteSalary(long id){
+
+    public void deleteSalary(long id) {
         LOGGER.info("Deleting clocking : {}", id);
         salaryRepository.deleteById(id);
     }
 }
-

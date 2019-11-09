@@ -41,7 +41,7 @@ public class EmployeesService {
         LOGGER.info("Retrieving employees : {}", id);
         return employeesRepository.findById(id)
                 .orElseThrow(() ->
-                        new ResourceNotFoundException("Employees" + id + "not found"));
+                        new ResourceNotFoundException("Employee" + id + "not found"));
     }
 
     public Employees updateEmployees(long id, SaveEmployeesRequest request) {

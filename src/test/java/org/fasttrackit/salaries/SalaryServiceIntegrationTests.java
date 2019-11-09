@@ -10,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-@SpringBootTest
-@RunWith(SpringRunner.class)
-public class SalaryServiceIntegrationTests {
+    @SpringBootTest
+    @RunWith(SpringRunner.class)
+    public class SalaryServiceIntegrationTests {
 
     @Autowired
     private EmployeesService employeesService;
@@ -34,7 +34,7 @@ public class SalaryServiceIntegrationTests {
 //        Employees employees = employeesService.createEmployees(request);
 
         AddEmployeesToSalary request1 = new AddEmployeesToSalary();
-        request1.setEmployeesId(36);
+        request1.setEmployeesId(1);
 
         salaryService.createSalary(request1, request2);
     }

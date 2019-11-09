@@ -31,6 +31,22 @@ public class Salary {
 
     private Employees employees;
 
+    public Employees getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(Employees employees) {
+        this.employees = employees;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public long getWorkingdaysmonth() {
         return workingdaysmonth;
     }
@@ -156,48 +172,16 @@ public class Salary {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Salary)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
         Salary salary = (Salary) o;
 
-        if (id != salary.id) return false;
-        if (getWorkingdaysmonth() != salary.getWorkingdaysmonth()) return false;
-        if (getWorkeddays() != salary.getWorkeddays()) return false;
-        if (getHolidays() != salary.getHolidays()) return false;
-        if (getSickdays() != salary.getSickdays()) return false;
-        if (getDayswithoutsalary() != salary.getDayswithoutsalary()) return false;
-        if (getRightworkeddays() != salary.getRightworkeddays()) return false;
-        if (getRightholidays() != salary.getRightholidays()) return false;
-        if (getRightsickdays() != salary.getRightsickdays()) return false;
-        if (getRighttickets() != salary.getRighttickets()) return false;
-        if (getBrutincome() != salary.getBrutincome()) return false;
-        if (getCAS() != salary.getCAS()) return false;
-        if (getCASS() != salary.getCASS()) return false;
-        if (getNetincome() != salary.getNetincome()) return false;
-        if (getTax() != salary.getTax()) return false;
-        if (getNetsalary() != salary.getNetsalary()) return false;
-        return employees.equals(salary.employees);
+        return id == salary.id;
+
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (int) (getWorkingdaysmonth() ^ (getWorkingdaysmonth() >>> 32));
-        result = 31 * result + (int) (getWorkeddays() ^ (getWorkeddays() >>> 32));
-        result = 31 * result + (int) (getHolidays() ^ (getHolidays() >>> 32));
-        result = 31 * result + (int) (getSickdays() ^ (getSickdays() >>> 32));
-        result = 31 * result + (int) (getDayswithoutsalary() ^ (getDayswithoutsalary() >>> 32));
-        result = 31 * result + (int) (getRightworkeddays() ^ (getRightworkeddays() >>> 32));
-        result = 31 * result + (int) (getRightholidays() ^ (getRightholidays() >>> 32));
-        result = 31 * result + (int) (getRightsickdays() ^ (getRightsickdays() >>> 32));
-        result = 31 * result + (int) (getRighttickets() ^ (getRighttickets() >>> 32));
-        result = 31 * result + (int) (getBrutincome() ^ (getBrutincome() >>> 32));
-        result = 31 * result + (int) (getCAS() ^ (getCAS() >>> 32));
-        result = 31 * result + (int) (getCASS() ^ (getCASS() >>> 32));
-        result = 31 * result + (int) (getNetincome() ^ (getNetincome() >>> 32));
-        result = 31 * result + (int) (getTax() ^ (getTax() >>> 32));
-        result = 31 * result + (int) (getNetsalary() ^ (getNetsalary() >>> 32));
-        result = 31 * result + employees.hashCode();
-        return result;
+        return (int) (id ^ (id >>> 32));
     }
 }
